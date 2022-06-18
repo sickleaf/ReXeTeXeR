@@ -1,8 +1,9 @@
 INAME:=terfno/rexetexer
-TAG:=dev
+TAG:=latest
 CNAME:=rexetexer
 TARGET:=report
 CONTAINER_ENGINE:=docker
+
 
 podman.%:
 	@$(MAKE) $* CONTAINER_ENGINE="podman"
@@ -10,8 +11,15 @@ podman.%:
 init:
 	@${CONTAINER_ENGINE} pull ${INAME}:${TAG}
 
+dev:
+	@${CONTAINER_ENGINE} run -it --rm alpine:3.11 sh
+
+build:
+	@${CONTAINER_ENGINE} build -t '${INAME}:${TAG}' .
+
 run:
-	@${CONTAINER_ENGINE} run -it --rm -v ${CURDIR}:/docs -w /docs --name ${CNAME} ${INAME}:${TAG} sh
+	@${CONTAINER_ENGINE} run -it --rm -v ${CURDIR}/test:/docs -w /docs --name ${CNAME} ${INAME}:${TAG} make tex
+	#@${CONTAINER_ENGINE} run -it --rm -v ${CURDIR}:/docs -w /docs --name ${CNAME} ${INAME}:${TAG} sh
 
 exec:
 	@${CONTAINER_ENGINE} exec -it ${CNAME} sh
@@ -28,6 +36,9 @@ rm:
 
 rmi:
 	@${CONTAINER_ENGINE} rmi ${INAME}:${TAG}
+
+# xetex
+	@${CONTAINER_ENGINE} run -it --rm -v ${CURDIR}:/docs -w /docs --name ${CNAME} ${INAME}:${TAG} make tex
 
 # tex
 tex:

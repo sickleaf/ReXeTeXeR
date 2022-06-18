@@ -1,8 +1,9 @@
 INAME:=terfno/rexetexer
 TAG:=latest
 CNAME:=rexetexer
-TARGET:=report
+TARGET:=baseContents
 CONTAINER_ENGINE:=docker
+
 
 podman.%:
 	@$(MAKE) $* CONTAINER_ENGINE="podman"
@@ -16,8 +17,12 @@ dev:
 build:
 	@${CONTAINER_ENGINE} build -t '${INAME}:${TAG}' .
 
+
+	#@${CONTAINER_ENGINE} run -it --rm -v ${CURDIR}:/docs -w /docs --name ${CNAME} ${INAME}:${TAG} sh
 run:
-	@${CONTAINER_ENGINE} run -it --rm -v ${CURDIR}:/docs -w /docs --name ${CNAME} ${INAME}:${TAG} sh
+	#@${CONTAINER_ENGINE} run -it --rm -v ${CURDIR}/radiberrypi-master:/docs -w /docs --name ${CNAME} ${INAME}:${TAG} make tex
+	#@${CONTAINER_ENGINE} run -it --rm -v ${CURDIR}/tb4Radipi-master:/docs -w /docs --name ${CNAME} ${INAME}:${TAG} make tex
+	@${CONTAINER_ENGINE} run -it --rm -v ${CURDIR}/zxjatype-sample:/docs -w /docs --name ${CNAME} ${INAME}:${TAG} make tex
 
 exec:
 	@${CONTAINER_ENGINE} exec -it ${CNAME} sh
@@ -35,10 +40,13 @@ rm:
 rmi:
 	@${CONTAINER_ENGINE} rmi ${INAME}:${TAG}
 
+# xetex
+	@${CONTAINER_ENGINE} run -it --rm -v ${CURDIR}:/docs -w /docs --name ${CNAME} ${INAME}:${TAG} make tex
+
 # tex
 tex:
 	@rm -f ${TARGET}.aux && rm -f ${TARGET}.bbl && rm -f ${TARGET}.blg && rm -f ${TARGET}.log && rm -f ${TARGET}.toc &&\
-	xelatex ${TARGET}.tex && pbibtex report.aux && xelatex ${TARGET}.tex && xelatex ${TARGET}.tex
+	xelatex ${TARGET}.tex && pbibtex ${TARGET}.aux && xelatex ${TARGET}.tex && xelatex ${TARGET}.tex
 
 watch:
 	@echo "start watching" && \
