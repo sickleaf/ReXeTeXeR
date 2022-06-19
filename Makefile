@@ -1,4 +1,4 @@
-INAME:=terfno/rexetexer
+INAME:=xeleaf
 TAG:=latest
 CNAME:=rexetexer
 TARGET:=baseContents
@@ -19,10 +19,10 @@ build:
 
 
 	#@${CONTAINER_ENGINE} run -it --rm -v ${CURDIR}:/docs -w /docs --name ${CNAME} ${INAME}:${TAG} sh
+
+#[usage] make run DST=radiberrypi-master
 run:
-	#@${CONTAINER_ENGINE} run -it --rm -v ${CURDIR}/radiberrypi-master:/docs -w /docs --name ${CNAME} ${INAME}:${TAG} make tex
-	#@${CONTAINER_ENGINE} run -it --rm -v ${CURDIR}/tb4Radipi-master:/docs -w /docs --name ${CNAME} ${INAME}:${TAG} make tex
-	@${CONTAINER_ENGINE} run -it --rm -v ${CURDIR}/zxjatype-sample:/docs -w /docs --name ${CNAME} ${INAME}:${TAG} make tex
+	@${CONTAINER_ENGINE} run -it --rm -v ${CURDIR}/${DST}:/docs -w /docs --name ${CNAME} ${INAME}:${TAG} make tex
 
 exec:
 	@${CONTAINER_ENGINE} exec -it ${CNAME} sh
