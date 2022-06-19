@@ -1,6 +1,29 @@
 ## build xeleaf image
+
+### make command. if you want to check command, add -n option
+$ make build
+
+### manual
 $ docker build -t xeleaf -f ./Dockerfile .
 
-## check whether zxjatype.sty exists(do not keep container)
+#### check whether zxjatype.sty exists(do not keep container)
 $ docker run --rm -it xeleaf find / -name "zxjatype.sty"
+
+## build pdf
+
+### make command, with DST env
+$ make run DST=..../
+
+IPAMincho latex install
+https://qiita.com/fujino-fpu/items/eeafe3143ae40addff84
+
+uline package
+https://doratex.hatenablog.jp/entry/20171219/1513609345
+
+makefile with args
+https://qiita.com/algas/items/499d0d69d51a1cc7639f
+
+makefile functions
+https://tex2e.github.io/blog/makefile/functions
+
 
