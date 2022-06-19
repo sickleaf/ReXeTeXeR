@@ -1,0 +1,6 @@
+## build xeleaf image
+$ docker build -t xeleaf -f ./Dockerfile .
+
+## check whether zxjatype.sty exists(do not keep container)
+$ docker run --rm -it xeleaf find / -name "zxjatype.sty"
+
