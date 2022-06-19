@@ -1,4 +1,4 @@
-FROM alpine:3.11
+FROM alpine:3.15
 
 # install xetex
 RUN apk add openssl make texlive-full git
