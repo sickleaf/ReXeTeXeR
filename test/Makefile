@@ -1,4 +1,4 @@
-INAME:=terfno/rexetexer
+INAME:=xeleaf
 TAG:=latest
 CNAME:=rexetexer
 TARGET:=report
@@ -12,7 +12,7 @@ init:
 	@${CONTAINER_ENGINE} pull ${INAME}:${TAG}
 
 dev:
-	@${CONTAINER_ENGINE} run -it --rm alpine:3.11 sh
+	@${CONTAINER_ENGINE} run -it --rm alpine:3.15 sh
 
 build:
 	@${CONTAINER_ENGINE} build -t '${INAME}:${TAG}' .
